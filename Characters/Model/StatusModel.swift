@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StatusModel : Error  {
+struct StatusModel : Codable  {
     
     let code : Int?
     let status : String?

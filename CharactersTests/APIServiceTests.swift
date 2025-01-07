@@ -1,5 +1,5 @@
 //
-//  CharacterViewModelTests.swift
+//  APIServiceTests.swift
 //  CharactersTests
 //
 //  Created by Ahmed Serdah on 05/01/2025.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import Characters
 
-final class CharacterViewModelTests: XCTestCase {
+final class APIServiceTests: XCTestCase {
     
     
     func testFetchCharactersWithSuccess() {

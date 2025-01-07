@@ -1,5 +1,5 @@
 //
-//  CharactersTests.swift
+//  CharactertViewModelTests.swift
 //  CharactersTests
 //
 //  Created by Ahmed Serdah on 03/01/2025.
@@ -8,10 +8,30 @@
 import Testing
 @testable import Characters
 
-struct CharactersTests {
+struct CharactertViewModelTests {
+    
+    let viewModel: CharacterViewModel!
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-    }
+     init() {
+         self.viewModel = CharacterViewModel()
+     }
+
+    @Test("Characters list updates after fetch") func testFetchCharactersUpdatesCharacters() async throws {
+        
+         
+         viewModel.fetchCharacters()
+         
+        #expect(self.viewModel.characters.count > 0)
+
+     }
+    @Test("Fetch handles error gracefully") func testFetchCharactersHandlesError() async throws {
+        
+         
+         viewModel.fetchCharacters()
+         
+        #expect(self.viewModel.characters.isEmpty)
+
+     }
+    
 
 }

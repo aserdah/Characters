@@ -6,3 +6,7 @@
 //
 
 import Foundation
+struct OriginModel : Codable {
+    let name : String?
+    let url : String?
+}

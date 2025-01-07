@@ -8,14 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var charactersViewModel = CharacterViewModel.shared
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack{
+            ZStack{
+                VStack{
+                    Text("Character List")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                    CharacterListViewControllerWrapper()
+                     
+                }
+                if charactersViewModel.loading == true {
+                    
+                    CustomProgressView()
+                }
+            }
+            .task {
+                charactersViewModel.fetchCharacters()
+            }
+            .alert(isPresented: $charactersViewModel.error) {
+                
+                Alert(title: Text("Oops!"), message: Text(charactersViewModel.errorInfo?.localizedDescription ?? "Error"), dismissButton: .default(Text("Got it!")))
+            }
+            .navigationBarTitle("")
+
         }
-        .padding()
+        .accentColor(.black)
     }
 }
 
