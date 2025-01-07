@@ -1,8 +1,8 @@
 # Characters
-Characters application with characters listing and detail screen using MVVM + SwiftUI + UI
+Characters application with characters listing and detail screen using MVVM + SwiftUI + UIKit
 
 ## Key Features
-- Characters listing screen using TMDB api [Discover Movies](https://developers.themoviedb.org/3/discover/movie-discover)
+- Characters listing screen using Rick and Morty API [Discover Characters](https://rickandmortyapi.com/api/character)
 - Scroll movies with pagination results
 - Character's detail screen 
 
@@ -15,7 +15,7 @@ Characters application with characters listing and detail screen using MVVM + Sw
 
 ## Technologies
 - Swift language
-- SwiftUI for UI design
+- SwiftUI and UIKit for UI design
 - MVVM 
 - Async await for asynchronous network calls
 - Unit testing with  for CharactertViewModel and APIService
