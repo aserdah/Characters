@@ -8,48 +8,44 @@
 import Foundation
 import Combine
 
+@MainActor
 class CharacterViewModel: ObservableObject {
     
     @Published var characters: [CharacterModel] = []
     @Published var loading = false
     @Published var success = false
-    @Published var errorInfo:Error?
+    @Published var errorInfo: Error?
     @Published var error = false
     
     static let shared = CharacterViewModel()
     
-    private var nextPageURL: URL? = URL(string: "https://rickandmortyapi.com/api/character")
+    var nextPageURL: URL? = URL(string: "https://rickandmortyapi.com/api/character")
     
-    func fetchCharacters() {
+    func fetchCharacters() async {
         guard let url = nextPageURL else { return }
+        
         loading = true
-        APIService.fetchApi(url: url) { [weak self] result  in
-            DispatchQueue.main.async {
-                
-                self?.loading = false
-                
-                switch result {
-                case .success(let response):
-                    self?.success = true
-                    if let results = response.results {
-                        print(results)
-                        self?.characters.append(contentsOf: results)
-                    }
-                    if let url = response.info?.next {
-                        print(url)
-                        self?.nextPageURL = URL(string: url)
-                    }
-                    
-                case .failure(let error):
-                    
-                    self?.error = true
-                    self?.errorInfo = error
-                    
-                    
-                }
+        error = false
+        errorInfo = nil
+        success = false
+        
+        do {
+            let response = try await APIService.fetchData(url: url)
+            self.success = true
+            
+            if let results = response.results {
+                self.characters.append(contentsOf: results)
             }
+            
+            if let url = response.info.next {
+                self.nextPageURL = URL(string: url)
+            }
+            
+        } catch {
+            self.error = true
+            self.errorInfo = error
         }
         
+        loading = false
     }
-    
 }

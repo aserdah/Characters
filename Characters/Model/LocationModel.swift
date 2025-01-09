@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct LocationModel : Codable {
-    let name : String?
-    let url : String?
+struct LocationModel : Decodable {
+    let name : String
+    let url : String
 }

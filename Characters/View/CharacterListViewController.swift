@@ -1,10 +1,3 @@
-//
-//  CharacterListViewController.swift
-//  Characters
-//
-//  Created by Ahmed Serdah on 03/01/2025.
-//
-
 import UIKit
 import SwiftUI
 import Combine
@@ -17,7 +10,8 @@ class CharacterListViewController: UITableViewController {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
-        //charactersViewModel.fetchCharacters()
+        // Start fetching characters when the view loads
+        fetchCharacters()
     }
     
     private func setupUI() {
@@ -27,21 +21,17 @@ class CharacterListViewController: UITableViewController {
     
     private func bindViewModel() {
         charactersViewModel.$characters
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] characters in
-                      print("Characters updated: \(characters.count)")
-                
-                      self?.tableView.reloadData()
-                  }
-                  .store(in: &cancellables)
+            .receive(on: RunLoop.main) // Ensures updates are made on the main thread
+            .sink { [weak self] _ in
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
     }
     
     // Table View Data Source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        print("Number of rows: \(charactersViewModel.characters.count)")
-        
-         return charactersViewModel.characters.count    }
+        return charactersViewModel.characters.count
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as? CharacterTableViewCell else {
@@ -52,9 +42,17 @@ class CharacterListViewController: UITableViewController {
         
         // Trigger pagination when reaching the end
         if indexPath.row == charactersViewModel.characters.count - 1 {
-            charactersViewModel.fetchCharacters()
+            fetchCharacters()
         }
         return cell
+    }
+    
+    // Trigger async fetch when needed
+    private func fetchCharacters() {
+        // Use a Task to call the async fetch function
+        Task {
+            await charactersViewModel.fetchCharacters()
+        }
     }
     
     // Navigation to detail view
@@ -65,3 +63,4 @@ class CharacterListViewController: UITableViewController {
         navigationController?.pushViewController(detailController, animated: true)
     }
 }
+

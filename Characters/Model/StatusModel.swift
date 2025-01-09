@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct StatusModel : Codable  {
+struct StatusModel : Decodable  {
     
-    let code : Int?
-    let status : String?
-    let message : String?
+    let code : Int
+    let status : String
+    let message : String
     
 }

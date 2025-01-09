@@ -22,9 +22,9 @@ struct CharacterRowView: View {
                 ProgressView()
                     .frame(width: 50, height: 50)
                     .clipShape(Circle())
-
+                
             })
-
+            
             VStack(alignment: .leading) {
                 Text(character?.name ?? "")
                     .font(.headline)

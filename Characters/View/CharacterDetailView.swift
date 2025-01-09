@@ -22,9 +22,9 @@ struct CharacterDetailView: View {
                 ProgressView()
                     .frame(width: 250, height: 250)
                     .clipShape(Circle())
-
+                
             })
-                .padding()
+            .padding()
             Text(character?.name ?? "")
                 .font(.largeTitle)
                 .fontWeight(.black)

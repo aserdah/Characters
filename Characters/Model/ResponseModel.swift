@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct ResponseModel: Codable {
+struct ResponseModel: Decodable {
     
-    let info : InfoModel?
+    let info : InfoModel
     let results : [CharacterModel]?
     
 }

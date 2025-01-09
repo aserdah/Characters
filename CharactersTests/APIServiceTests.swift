@@ -10,52 +10,33 @@ import XCTest
 
 final class APIServiceTests: XCTestCase {
     
-    
-    func testFetchCharactersWithSuccess() {
-        
-        let expectation = XCTestExpectation(description: "Fetch characters succeeds")
+    func testFetchCharactersWithSuccess() async throws {
+        // Arrange
         let url = URL(string: "https://rickandmortyapi.com/api/character")!
-        APIService.fetchApi(url: url) { result  in
-            
-            switch result {
-            case .success(let response):
-                XCTAssertFalse(((response.results?.isEmpty) != nil), "Results should not be empty")
-                expectation.fulfill()
-                
-            case .failure(let error):
-                
-                XCTFail("Expected success but got failure")
-                
-            }
-            
-        }
-        wait(for: [expectation], timeout: 5.0)
-
-    }
-    
-    func testFetchCharactersWithFailure() {
         
-        let expectation = XCTestExpectation(description: "Fetch characters succeeds")
-        let url = URL(string: "https://rickandmortyapi.com/api/charrss")!
-        APIService.fetchApi(url: url) { result  in
+        // Act
+        do {
+            let response = try await APIService.fetchData(url: url)
             
-            switch result {
-            case .success(let response):
-                XCTFail("Expected Error but got success")
-                
-            case .failure(let error):
-                XCTAssertNotNil(error, "Not nil Error")
-                expectation.fulfill()
-
-                
-            }
-            
+            // Assert
+            XCTAssertFalse(response.results?.isEmpty ?? true, "Results should not be empty")
+        } catch {
+            XCTFail("Expected success but got failure: \(error)")
         }
-        wait(for: [expectation], timeout: 5.0)
-
     }
     
-    
-    
-    
+    func testFetchCharactersWithFailure() async throws {
+        // Arrange
+        let url = URL(string: "https://rickandmortyapi.com/api/characterxxx")!
+        
+        // Act
+        do {
+            _ = try await APIService.fetchData(url: url)
+            XCTFail("Expected failure but got success")
+        } catch {
+            // Assert
+            XCTAssertNotNil(error, "Error should not be nil")
+        }
+    }
 }
+

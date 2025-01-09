@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct CharactersView: View {
     @ObservedObject var charactersViewModel = CharacterViewModel.shared
-
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -18,27 +18,25 @@ struct ContentView: View {
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                     CharacterListViewControllerWrapper()
-                     
+                    
                 }
                 if charactersViewModel.loading == true {
                     
                     CustomProgressView()
                 }
             }
-            .task {
-                charactersViewModel.fetchCharacters()
-            }
+            
             .alert(isPresented: $charactersViewModel.error) {
                 
                 Alert(title: Text("Oops!"), message: Text(charactersViewModel.errorInfo?.localizedDescription ?? "Error"), dismissButton: .default(Text("Got it!")))
             }
             .navigationBarTitle("")
-
+            
         }
         .accentColor(.black)
     }
 }
 
 #Preview {
-    ContentView()
+    CharactersView()
 }
