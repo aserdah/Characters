@@ -6,12 +6,6 @@ Characters application with characters listing and detail screen using MVVM + Sw
 - Scroll movies with pagination results
 - Character's detail screen 
 
-## Screenshots
-<table>
-     <td><img src="https://github.com/user-attachments/assets/622fe737-41d3-406b-b10e-4dcb1668af93" alt="Characters" width="200"/></td>
-    <td><img src="https://github.com/user-attachments/assets/7072a236-f97c-4997-b1c3-cb5b4731a2c8" alt="Characters scroll" width="200"/></td>
-    <td><img src="https://github.com/user-attachments/assets/36e0c878-142f-4583-a4c9-d2963210f415" alt="Character's Detail" width="200"/></td>
-</table>
 
 ## Technologies
 - Swift language
