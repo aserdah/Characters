@@ -25,11 +25,6 @@ struct CharactersView: View {
                     CustomProgressView()
                 }
             }
-            
-            .alert(isPresented: $charactersViewModel.error) {
-                
-                Alert(title: Text("Oops!"), message: Text(charactersViewModel.errorInfo?.localizedDescription ?? "Error"), dismissButton: .default(Text("Got it!")))
-            }
             .navigationBarTitle("")
             
         }

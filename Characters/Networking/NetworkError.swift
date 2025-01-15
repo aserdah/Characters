@@ -1,5 +1,5 @@
 //
-//  APIError.swift
+//  NetworkError.swift
 //  Characters
 //
 //  Created by Ahmed Serdah on 09/01/2025.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum APIError: Error, LocalizedError {
+enum NetworkError: Error, LocalizedError {
     case invalidResponse
     case invalidStatusCode(Int)
     case decodingError(Error)
